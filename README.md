@@ -204,9 +204,9 @@ If you need to remove this module:
    - `admin/includes/languages/english/extra_definitions/lang.youtube_video.php`
 
    **Storefront Files:**
-   - `includes/languages/english/extra_definitions/lang.youtube_video.php`
-   - `includes/modules/pages/product_info/main_template_vars.php`
-   - `includes/templates/[your_template_name]/templates/tpl_product_info_display.php`
+   - Delete `includes/languages/english/extra_definitions/lang.youtube_video.php`
+   - Replace `includes/modules/pages/product_info/main_template_vars.php` with the original Zen Cart file
+   - Replace `includes/templates/[your_template_name]/templates/tpl_product_info_display.php` with the original Zen Cart file
 
 
 
