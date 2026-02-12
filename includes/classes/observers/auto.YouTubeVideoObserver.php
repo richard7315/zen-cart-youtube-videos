@@ -6,7 +6,7 @@
  *
  * @copyright Copyright 2003-2026 Zen Cart Development Team
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: auto.YouTubeVideoObserver.php v1.0.2 2026-02-12 $
+ * @version $Id: auto.YouTubeVideoObserver.php v1.0.3 2026-02-12 $
  */
 
 class zcObserverYouTubeVideoObserver extends base

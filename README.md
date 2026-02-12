@@ -69,11 +69,9 @@ This module adds YouTube video functionality to Zen Cart product pages. Store ow
 YouTube-Videos-for-Zen-Cart/
 ├── YOUR_ADMIN/                       ← Upload to admin/
 │   └── includes/
-│       ├── auto_loaders/
-│       │   └── config.youtube_video_admin.php
 │       ├── classes/
 │       │   └── observers/
-│       │       └── YouTubeVideoAdminObserver.php
+│       │       └── auto.YouTubeVideoAdminObserver.php
 │       └── languages/
 │           └── english/
 │               └── extra_definitions/
@@ -110,25 +108,14 @@ AFTER products_image;
 
 ### Blank Admin Pages After Installation
 
-If admin pages show a blank/white screen after installing this module, the most likely cause is a missing `classPath` parameter in the autoloader configuration.
+If admin pages show a blank/white screen after installing this module, check the PHP error logs in `admin/logs/` for fatal errors. The most common cause is a PHP syntax error or file permission issue.
 
-Verify your autoloader file at `admin/includes/auto_loaders/config.youtube_video_admin.php` includes the `classPath` line:
-
-```php
-$autoLoadConfig[190][] = [
-    'autoType' => 'class',
-    'loadFile' => 'observers/YouTubeVideoAdminObserver.php',
-    'classPath' => DIR_WS_CLASSES,  // This line is CRITICAL for Zen Cart 2.0+
-];
-```
-
-If this line is missing, download the latest version of this module and replace the autoloader file.
+Verify the observer file exists at `admin/includes/classes/observers/auto.YouTubeVideoAdminObserver.php` and is readable (typically permission 644).
 
 ### Video ID Field Not Appearing in Admin
 
-1. Verify file locations:
-   - `admin/includes/auto_loaders/config.youtube_video_admin.php`
-   - `admin/includes/classes/observers/YouTubeVideoAdminObserver.php`
+1. Verify file location:
+   - `admin/includes/classes/observers/auto.YouTubeVideoAdminObserver.php`
 
 2. Check file permissions (files should be readable, typically 644)
 
@@ -160,7 +147,7 @@ If this line is missing, download the latest version of this module and replace 
 
 ### Video ID Not Saving
 
-If the YouTube Video ID field appears but the value isn't saved when you update the product, the observer may be missing the save notification. Verify that `admin/includes/classes/observers/YouTubeVideoAdminObserver.php` listens to **both** of these notifications:
+If the YouTube Video ID field appears but the value isn't saved when you update the product, the observer may be missing the save notification. Verify that `admin/includes/classes/observers/auto.YouTubeVideoAdminObserver.php` listens to **both** of these notifications:
 
 - `NOTIFY_ADMIN_PRODUCT_COLLECT_INFO_EXTRA_INPUTS` (to display the field)
 - `NOTIFY_ADMIN_PRODUCT_UPDATE_PRODUCT_END` (to save the value)
@@ -198,8 +185,7 @@ If you need to remove this module:
    Delete the following files from your Zen Cart installation:
 
    **Admin Files:**
-   - `admin/includes/auto_loaders/config.youtube_video_admin.php`
-   - `admin/includes/classes/observers/YouTubeVideoAdminObserver.php`
+   - `admin/includes/classes/observers/auto.YouTubeVideoAdminObserver.php`
    - `admin/includes/languages/english/extra_definitions/lang.youtube_video.php`
 
    **Storefront Files:**
@@ -248,6 +234,13 @@ GNU Public License V2.0
 
 ## Version History
 
+### Version 1.0.3 - 2026-02-12
+
+- Replaced manual admin autoloader config with auto-loading observer convention (`auto.` prefix)
+- Removed `config.youtube_video_admin.php` — no longer needed
+- Renamed admin observer to `auto.YouTubeVideoAdminObserver.php`
+- One fewer file to install and maintain
+
 ### Version 1.0.2 - 2026-02-12
 
 - Replaced modified `main_template_vars.php` with a storefront observer (`auto.YouTubeVideoObserver.php`), eliminating the need to modify this core file
@@ -267,7 +260,6 @@ Initial Release:
 - Responsive video display on product pages
 - Privacy-focused embed using `youtube-nocookie.com`
 - Proper observer pattern implementation for Zen Cart 2.0+
-- Clean autoloader configuration with `classPath` support
 
 ---
 

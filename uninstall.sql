@@ -1,5 +1,5 @@
 -- YouTube Video for Products - Uninstallation SQL
--- Version: 1.0.2
+-- Version: 1.0.3
 -- Date: 2026-02-10
 --
 -- WARNING: This will remove the YouTube video ID field and all video data from your products.

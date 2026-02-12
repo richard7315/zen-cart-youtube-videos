@@ -199,7 +199,7 @@ Check for JavaScript errors:
 
 | Issue | Solution |
 |-------|----------|
-| Field doesn't appear in admin | Check autoloader and observer files are in correct locations in YOUR_ADMIN |
+| Field doesn't appear in admin | Check observer file is in the correct location in YOUR_ADMIN |
 | Field doesn't save | Check database column exists |
 | Video doesn't display | Verify product has video ID set, check template files exist |
 | Video shows on wrong product | Clear cache, verify database values |

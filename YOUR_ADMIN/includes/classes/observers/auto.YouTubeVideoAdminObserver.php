@@ -1,15 +1,18 @@
 <?php
 /**
+ * Admin observer for YouTube Video module.
+ * Adds YouTube Video ID field to product edit form and handles saving.
+ *
  * @copyright Copyright 2003-2026 Zen Cart Development Team
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: YouTubeVideoAdminObserver.php v1.0.2 2026-02-12 $
+ * @version $Id: auto.YouTubeVideoAdminObserver.php v1.0.3 2026-02-12 $
  */
 
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-class YouTubeVideoAdminObserver extends base
+class zcObserverYouTubeVideoAdminObserver extends base
 {
     public function __construct()
     {
