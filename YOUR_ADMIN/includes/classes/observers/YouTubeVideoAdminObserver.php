@@ -2,7 +2,7 @@
 /**
  * @copyright Copyright 2003-2026 Zen Cart Development Team
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: YouTubeVideoAdminObserver.php v1.0.1 2026-02-12 $
+ * @version $Id: YouTubeVideoAdminObserver.php v1.0.2 2026-02-12 $
  */
 
 if (!defined('IS_ADMIN_FLAG')) {

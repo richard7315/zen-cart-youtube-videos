@@ -25,7 +25,7 @@ This module adds YouTube video functionality to Zen Cart product pages. Store ow
    - Upload the `YOUR_ADMIN` folder contents to your Zen Cart's `admin` directory
    - Upload the `includes` folder contents to your Zen Cart's `includes` directory
    - **Template Note**: The included `tpl_product_info_display.php` is based on the Zen Cart 2.1.0 `responsive_classic` template. If you use a different template, you will need to manually add the YouTube video code to your template's `tpl_product_info_display.php` file below the product description section (see [Custom Template Usage](#custom-template-usage) below).
-   - **Note**: The files `main_template_vars.php` and `tpl_product_info_display.php` are modified Zen Cart core files. If you have custom changes in these files, merge the YouTube video code into your existing files rather than overwriting them.
+   - **Note**: The included `tpl_product_info_display.php` is a modified Zen Cart core file. If you have custom changes in this file, merge the YouTube video code into your existing file rather than overwriting it.
 
 
 3. **Run Database Update**
@@ -79,14 +79,13 @@ YouTube-Videos-for-Zen-Cart/
 │               └── extra_definitions/
 │                   └── lang.youtube_video.php
 ├── includes/                         ← Upload to includes/ (standard Zen Cart structure)
+│   ├── classes/
+│   │   └── observers/
+│   │       └── auto.YouTubeVideoObserver.php
 │   ├── languages/
 │   │   └── english/
 │   │       └── extra_definitions/
 │   │           └── lang.youtube_video.php
-│   ├── modules/
-│   │   └── pages/
-│   │       └── product_info/
-│   │           └── main_template_vars.php
 │   └── templates/
 │       └── responsive_classic/        ← For responsive_classic template
 │           └── templates/
@@ -155,7 +154,7 @@ If this line is missing, download the latest version of this module and replace 
    - Ensure the template file is at: `includes/templates/[your_template_name]/templates/tpl_product_info_display.php`
 
 4. **Check All File Locations**:
-   - `includes/modules/pages/product_info/main_template_vars.php`
+   - `includes/classes/observers/auto.YouTubeVideoObserver.php`
    - `includes/templates/[your_template_name]/templates/tpl_product_info_display.php`
    - `includes/languages/english/extra_definitions/lang.youtube_video.php`
 
@@ -204,8 +203,8 @@ If you need to remove this module:
    - `admin/includes/languages/english/extra_definitions/lang.youtube_video.php`
 
    **Storefront Files:**
+   - Delete `includes/classes/observers/auto.YouTubeVideoObserver.php`
    - Delete `includes/languages/english/extra_definitions/lang.youtube_video.php`
-   - Replace `includes/modules/pages/product_info/main_template_vars.php` with the original Zen Cart file
    - Replace `includes/templates/[your_template_name]/templates/tpl_product_info_display.php` with the original Zen Cart file
 
 
@@ -248,6 +247,12 @@ For issues, questions, or feature requests, please post on this mod's support th
 GNU Public License V2.0
 
 ## Version History
+
+### Version 1.0.2 - 2026-02-12
+
+- Replaced modified `main_template_vars.php` with a storefront observer (`auto.YouTubeVideoObserver.php`), eliminating the need to modify this core file
+- One fewer core file to distribute — reduces upgrade conflicts
+- Uses `NOTIFY_MAIN_TEMPLATE_VARS_EXTRA_PRODUCT_INFO` notifier to set the `$products_youtube_video_id` template variable
 
 ### Version 1.0.1 - 2026-02-12
 
