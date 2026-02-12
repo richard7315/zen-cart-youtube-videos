@@ -24,7 +24,7 @@ This module adds YouTube video functionality to Zen Cart product pages. Store ow
    - Extract the module files
    - Upload the `YOUR_ADMIN` folder contents to your Zen Cart's `admin` directory
    - Upload the `includes` folder contents to your Zen Cart's `includes` directory
-   - **Important**: Rename `YOUR_TEMPLATE` in the path to match your template folder name (e.g., `responsive_classic`, `bootstrap`, etc.)
+   - **Template Note**: The included `tpl_product_info_display.php` is based on the Zen Cart 2.1.0 `responsive_classic` template. If you use a different template, you will need to manually add the YouTube video code to your template's `tpl_product_info_display.php` file below the product description section (see [Custom Template Usage](#custom-template-usage) below).
    - **Note**: The files `main_template_vars.php` and `tpl_product_info_display.php` are modified Zen Cart core files. If you have custom changes in these files, merge the YouTube video code into your existing files rather than overwriting them.
 
 
@@ -88,7 +88,7 @@ YouTube-Videos-for-Zen-Cart/
 │   │       └── product_info/
 │   │           └── main_template_vars.php
 │   └── templates/
-│       └── YOUR_TEMPLATE/            ← Rename to your template folder
+│       └── responsive_classic/        ← For responsive_classic template
 │           └── templates/
 │               └── tpl_product_info_display.php
 ├── install.sql
@@ -149,10 +149,10 @@ If this line is missing, download the latest version of this module and replace 
 
 2. **Clear Cache**: Clear Zen Cart cache and browser cache
 
-3. **Check Template Folder Name**: The most common issue is forgetting to rename `YOUR_TEMPLATE`
+3. **Check Template Folder Name**: The included template file is for the `responsive_classic` template
    - Find your current template name in Admin > Tools > Template Selection
+   - If you are not using `responsive_classic`, you need to manually add the YouTube video code to your template's `tpl_product_info_display.php` (see [Custom Template Usage](#custom-template-usage))
    - Ensure the template file is at: `includes/templates/[your_template_name]/templates/tpl_product_info_display.php`
-   - The folder name in the module distribution should match your actual template folder
 
 4. **Check All File Locations**:
    - `includes/modules/pages/product_info/main_template_vars.php`
@@ -220,13 +220,24 @@ If you need to remove this module:
 
 ## Custom Template Usage
 
-The `YOUR_TEMPLATE` folder should be renamed to match your actual Zen Cart template folder name. Common template names include:
+The included `tpl_product_info_display.php` is based on the `responsive_classic` template (the Zen Cart default). If you use a different template (e.g., `bootstrap` or a custom template), you will need to manually add the YouTube video code to your own template's `tpl_product_info_display.php`.
 
-- `responsive_classic` (Zen Cart default)
-- `bootstrap` (Bootstrap template)
-- Your custom template name
+Add the following code below the product description section (`<!--eof Product description -->`):
 
-Simply rename the folder before uploading, or copy the files into your existing template directory.
+```php
+<!-- bof Product youtube video -->
+<?php if (!empty($products_youtube_video_id)) { ?>
+<br class="clearBoth" />
+<div id="productYoutubeVideo" class="videoContent">
+    <h3><?= TEXT_PRODUCT_YOUTUBE_VIDEO ?></h3>
+    <div style="position: relative; width: 100%; padding-bottom: 56.25%;">
+        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($products_youtube_video_id) ?>?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</div>
+<br class="clearBoth" />
+<?php } ?>
+<!-- eof Product youtube video -->
+```
 
 ## Support
 
@@ -237,6 +248,12 @@ For issues, questions, or feature requests, please post on this mod's support th
 GNU Public License V2.0
 
 ## Version History
+
+### Version 1.0.1 - 2026-02-12
+
+- Changed template folder from `YOUR_TEMPLATE` to `responsive_classic`
+- Added code snippet in README for users of other templates
+- Documentation improvements
 
 ### Version 1.0.0 - 2026-02-10
 

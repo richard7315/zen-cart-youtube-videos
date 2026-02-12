@@ -1,5 +1,5 @@
 -- YouTube Video for Products - Installation SQL
--- Version: 1.0.0
+-- Version: 1.0.1
 -- Date: 2026-02-10
 --
 -- This SQL script adds the necessary database field to support YouTube videos on product pages.

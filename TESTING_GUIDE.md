@@ -8,7 +8,7 @@ Before testing, ensure:
 1. The module is installed (database field added, files uploaded)
 2. You have access to both the admin panel and storefront
 3. You have a test product to work with
-4. You have a YouTube video ID to test with (e.g., `abCd12345`)
+4. You have a YouTube video ID to test with
 
 ## Test Cases
 
@@ -139,9 +139,7 @@ Before testing, ensure:
 
 **Steps**:
 1. If using a custom template (not responsive_classic):
-2. Copy these files to your template directory:
-   - `includes/modules/pages/product_info/main_template_vars.php`
-   - `includes/templates/YOUR_TEMPLATE/templates/tpl_product_info_display.php`
+2. Manually add the YouTube video code to your template's `tpl_product_info_display.php` below the product description section (see the README for the code snippet)
 3. View a product with a video ID on storefront
 
 **Expected Result**:
