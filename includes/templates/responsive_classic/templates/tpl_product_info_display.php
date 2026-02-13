@@ -305,11 +305,7 @@ if (!empty($products_url) && $flag_show_product_info_url == 1) {
 } // $flag_show_product_info_url
 ?>
 <!--eof Product URL -->
-<?php
-//-bof-advanced_cross_sell_ii  *** 1 of 1 ***
-include $template->get_template_dir('tpl_modules_xsell2_products.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_modules_xsell2_products.php';
-//-eof-advanced_cross_sell_ii  *** 1 of 1 ***
-?>
+
 <!--bof also purchased products module-->
 <?php require $template->get_template_dir('tpl_modules_also_purchased_products.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_modules_also_purchased_products.php'; ?>
 <!--eof also purchased products module-->
