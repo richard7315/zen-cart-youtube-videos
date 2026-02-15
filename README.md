@@ -7,6 +7,7 @@ This module adds YouTube video functionality to Zen Cart product pages. Store ow
 ## Features
 
 - **Easy Admin Interface**: Add YouTube video IDs directly in the product edit form
+- **Flexible URL Input**: Paste full YouTube URLs, short URLs (youtu.be), or just the video ID - the system automatically extracts the video ID
 - **Responsive Video Display**: Videos are displayed in a responsive iframe that adapts to different screen sizes
 - **Privacy-Focused**: Uses `youtube-nocookie.com` domain to minimize tracking
 
@@ -47,16 +48,19 @@ This module adds YouTube video functionality to Zen Cart product pages. Store ow
 
 ### Adding a YouTube Video to a Product
 
-1. **Get the Video ID**
+1. **Get the Video URL or ID**
    - Go to the YouTube video you want to use
-   - From the URL `https://www.youtube.com/watch?v=abCd12345`
-   - Copy only the video ID: `abCd12345`
+   - You can use any of these formats:
+     - Full URL: `https://www.youtube.com/watch?v=abCd12345`
+     - Short URL: `https://youtu.be/abCd12345` 
+     - Just the video ID: `abCd12345`
 
 2. **Add to Product**
    - In the Admin Panel, go to **Catalog > Products**
    - Edit the product where you want to add the video
    - Scroll to the **YouTube Video ID** field
-   - Paste the video ID (e.g., `abCd12345`)
+   - Paste the YouTube URL, short URL, or video ID
+   - The system will automatically extract the video ID if you paste a full URL
    - Save the product
 
 3. **View on Storefront**
@@ -233,6 +237,14 @@ For issues, questions, or feature requests, please post on this mod's support th
 GNU Public License V2.0
 
 ## Version History
+
+### Version 1.0.4 - 2026-02-15
+
+- **Enhanced URL Input**: Added intelligent YouTube URL parsing that accepts full URLs, short URLs, or video IDs
+- Users can now paste `https://www.youtube.com/watch?v=abCd12345`, `https://youtu.be/abCd12345`, or just `abCd12345`
+- The system automatically extracts the video ID from any supported YouTube URL format
+- Updated admin interface placeholder and help text to reflect new flexibility
+- Improved user experience by eliminating manual video ID extraction
 
 ### Version 1.0.3 - 2026-02-12
 

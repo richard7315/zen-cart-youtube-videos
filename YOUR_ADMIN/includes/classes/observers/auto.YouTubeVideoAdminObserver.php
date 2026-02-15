@@ -5,7 +5,7 @@
  *
  * @copyright Copyright 2003-2026 Zen Cart Development Team
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: auto.YouTubeVideoAdminObserver.php v1.0.3 2026-02-12 $
+ * @version $Id: auto.YouTubeVideoAdminObserver.php v1.0.4 2026-02-15 $
  */
 
 if (!defined('IS_ADMIN_FLAG')) {
@@ -55,9 +55,41 @@ class zcObserverYouTubeVideoAdminObserver extends base
             'input' => zen_draw_input_field(
                 'products_youtube_video_id',
                 $safeValue,
-                'class="form-control" placeholder="e.g., abCd12345"'
+                'class="form-control" placeholder="Paste YouTube URL or Video ID"'
             ) . '<span class="help-block">' . TEXT_PRODUCTS_YOUTUBE_VIDEO_ID_DESCRIPTION . '</span>'
         ];
+    }
+
+    /**
+     * Extract YouTube video ID from various YouTube URL formats or return ID if already valid
+     *
+     * @param string $url YouTube URL or video ID
+     * @return string|false Returns the video ID or false if invalid
+     */
+    private function extractYouTubeID($url)
+    {
+        // If it's already an ID (no "http" in it), return as is
+        if (preg_match('/^[a-zA-Z0-9_-]{11}$/', $url)) {
+            return $url;
+        }
+
+        // Parse the URL
+        $parsedUrl = parse_url($url);
+
+        // Check for short YouTube URL (youtu.be)
+        if (isset($parsedUrl['host']) && $parsedUrl['host'] === 'youtu.be' && isset($parsedUrl['path'])) {
+            return ltrim($parsedUrl['path'], '/');
+        }
+
+        if (!isset($parsedUrl['query'])) {
+            return false; // Invalid format
+        }
+
+        // Parse query parameters
+        parse_str($parsedUrl['query'], $queryParams);
+
+        // Return the video ID if it exists
+        return $queryParams['v'] ?? false;
     }
 
     /**
@@ -71,8 +103,14 @@ class zcObserverYouTubeVideoAdminObserver extends base
 
         $products_id = is_array($p1) ? ($p1['products_id'] ?? 0) : (int)$p1;
 
-        $youtube_video_id = $_POST['products_youtube_video_id'] ?? '';
-        $youtube_video_id = preg_replace('/[^a-zA-Z0-9_-]/', '', $youtube_video_id);
+        $youtube_video_input = $_POST['products_youtube_video_id'] ?? '';
+        $youtube_video_id = $this->extractYouTubeID(trim($youtube_video_input));
+        
+        // If extraction failed, store empty string
+        if ($youtube_video_id === false) {
+            $youtube_video_id = '';
+        }
+        
         $prepared_value = zen_db_prepare_input($youtube_video_id);
 
         $sql = 'UPDATE ' . TABLE_PRODUCTS . ' SET products_youtube_video_id = :videoId WHERE products_id = :productsId';
